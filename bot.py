@@ -1,6 +1,5 @@
 import os
 import logging
-from token import TOKEN
 from get_page import check_result
 from dotenv import load_dotenv
 from telegram.ext import Updater, CommandHandler, CallbackContext
@@ -29,7 +28,7 @@ def main_function():
     load_dotenv()
     token = os.getenv('TOKEN')
 
-    updater = Updater(token=TOKEN, use_context=True)
+    updater = Updater(token=token, use_context=True)
     dispatcher = updater.dispatcher
 
     start_handler = CommandHandler('start', start, pass_job_queue=True)
