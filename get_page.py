@@ -32,23 +32,48 @@ def check_result():
 
     dict_values = {}
 
-    result = content.find('a', class_="b-post__link")
+    for post in content.find_all('h2', class_="b-post__title"):
+        if 'b-post__pin' in post['class']:
+            result = content.find_all('a', class_="b-post__link")[2]
+            print(result)
+            dict_values['title'] = result.text
+            dict_values['link'] = URL + result['href']
 
-    dict_values['title'] = result.text
-    dict_values['link'] =  URL + result['href']
+            with open("results.txt", "r+") as file:
+                value = file.read().split()
 
-    with open("results.txt", "r+") as file:
-        value = file.read().split()
+                if len(value) == 0:
+                    file.write(f"{dict_values['title']}: {dict_values['link']}")
+                    return dict_values
 
-        if len(value) == 0:
-            file.write(f"{dict_values['title']}: {dict_values['link']}")
-            return dict_values
+                elif value[-1] != dict_values['link']:
+                    file.truncate(0)
+                    file.write(f"{dict_values['title']}: {dict_values['link']}")
+                    return dict_values
 
-        elif value[-1] != dict_values['link']:
-            file.truncate(0)
-            file.write(f"{dict_values['title']}: {dict_values['link']}")
-            return dict_values
-
+                else:
+                    return
         else:
-            return
+            result = content.find('a', class_="b-post__link")
+            print(result)
+            dict_values['title'] = result.text
+            dict_values['link'] =  URL + result['href']
 
+            with open("results.txt", "r+") as file:
+                value = file.read().split()
+
+                if len(value) == 0:
+                    file.write(f"{dict_values['title']}: {dict_values['link']}")
+                    return dict_values
+
+                elif value[-1] != dict_values['link']:
+                    file.truncate(0)
+                    file.write(f"{dict_values['title']}: {dict_values['link']}")
+                    return dict_values
+
+                else:
+                    return
+
+
+
+check_result()
