@@ -35,7 +35,6 @@ def check_result():
     for post in content.find_all('h2', class_="b-post__title"):
         if 'b-post__pin' in post['class']:
             result = content.find_all('a', class_="b-post__link")[2]
-            print(result)
             dict_values['title'] = result.text
             dict_values['link'] = URL + result['href']
 
@@ -74,6 +73,3 @@ def check_result():
                 else:
                     return
 
-
-
-check_result()

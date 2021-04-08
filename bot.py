@@ -9,7 +9,7 @@ logging.basicConfig(level=logging.DEBUG)
 def start(update, context:CallbackContext):
     context.bot.send_message(chat_id=update.effective_chat.id, text="Starting...")
 
-    context.job_queue.run_repeating(callback=send_projects, interval=300, first=5, context=update)
+    context.job_queue.run_repeating(callback=send_projects, interval=300, first=20, context=update)
 
 def send_projects(context):
 
